@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>PDF Viewer</title>
-    <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
     <style>
         body, html {
             margin: 0;
@@ -20,13 +20,13 @@
     <canvas id="pdf-viewer"></canvas>
     <script>
         // Path to the PDF file
-        const url = 'Menu.pdf'; // Replace with full path if necessary
+        const url = 'Menu.pdf'; // Replace with full URL if necessary
 
         // Reference to PDF.js
         const pdfjsLib = window['pdfjs-dist/build/pdf'];
 
-        // Configure worker source
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://mozilla.github.io/pdf.js/build/pdf.worker.js';
+        // Configure the worker source
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
 
         // Load the PDF document
         const loadingTask = pdfjsLib.getDocument(url);
