@@ -5,49 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu</title>
     <style>
-        /* Ensure the page is responsive and fills the screen */
         body, html {
             margin: 0;
             padding: 0;
             height: 100%;
             width: 100%;
+            background-color: #f0f0f0;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #f0f0f0;
             flex-direction: column;
-            overflow: auto;  /* Allow scrolling */
         }
 
-        /* Image container */
         .image-container {
             width: 100%;
             max-width: 100%;
-            text-align: center; /* Center images */
-            overflow-y: auto;   /* Allow vertical scrolling if necessary */
+            text-align: center;
         }
 
         img {
             width: 100%;
-            height: auto; /* Ensure images are responsive */
-            max-width: 600px; /* Limit max width for larger screens */
-            margin-bottom: 10px; /* Space between images */
-            display: block; /* Ensure images behave as block elements */
-        }
-
-        /* Optional: prevent images from being squished on small devices */
-        @media (max-width: 480px) {
-            img {
-                max-width: 100%;  /* Allow images to take up 100% of the screen width */
-                margin-bottom: 15px; /* Space between images */
-            }
+            height: auto;
+            max-width: 600px;
+            display: block; /* Ensure no whitespace between images */
+            margin: 0; /* Remove any default margin */
+            padding: 0; /* Remove any default padding */
         }
     </style>
 </head>
 <body>
-
     <div class="image-container">
-        <!-- Menu pages as images -->
         <img src="https://londrimhappycaffe.github.io/happycaffemenu/menu1_page-0001.jpg" alt="Menu Page 1">
         <img src="https://londrimhappycaffe.github.io/happycaffemenu/menu1_page-0002.jpg" alt="Menu Page 2">
         <img src="https://londrimhappycaffe.github.io/happycaffemenu/menu1_page-0003.jpg" alt="Menu Page 3">
@@ -56,6 +43,5 @@
         <img src="https://londrimhappycaffe.github.io/happycaffemenu/menu1_page-0006.jpg" alt="Menu Page 6">
         <img src="https://londrimhappycaffe.github.io/happycaffemenu/menu1_page-0007.jpg" alt="Menu Page 7">
     </div>
-
 </body>
 </html>
