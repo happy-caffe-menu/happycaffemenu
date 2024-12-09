@@ -5,38 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu</title>
     <style>
-        /* Ensure body has no extra margin or padding */
-        body {
+        /* Ensure the page is responsive and fills the screen */
+        body, html {
             margin: 0;
             padding: 0;
-            height: 100vh;  /* Full viewport height */
+            height: 100%;
+            width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #f0f0f0; /* Optional: background color */
+            background-color: #f0f0f0;
+            flex-direction: column;
         }
 
-        /* Container for the PDF */
-        .pdf-container {
+        /* Image container */
+        .image-container {
             width: 100%;
-            max-width: 100%;    /* Full width */
-            height: 100%;
-            max-height: 100vh;  /* Full height */
-            overflow: hidden;   /* Prevent overflow */
+            max-width: 100%;
+            text-align: center; /* Center images */
         }
 
-        /* Make sure the iframe or object is responsive */
-        iframe, object {
+        img {
             width: 100%;
-            height: 100%;
-            border: none;  /* Remove borders for a cleaner look */
+            height: auto; /* Ensure images are responsive */
+            max-width: 600px; /* Limit max width for larger screens */
+            margin-bottom: 20px; /* Space between images */
         }
     </style>
 </head>
 <body>
-    <div class="pdf-container">
-        <!-- Embed the PDF using iframe for better compatibility -->
-        <iframe src="https://londrimhappycaffe.github.io/happycaffemenu/menu2.pdf" width="100%" height="100%"></iframe>
+
+    <div class="image-container">
+        <!-- Menu pages as images -->
+        <img src="https://londrimhappycaffe.github.io/happycaffemenu/menu1_page-0001.jpg" alt="Menu Page 1">
+        <img src="https://londrimhappycaffe.github.io/happycaffemenu/menu1_page-0002.jpg" alt="Menu Page 2">
+        <img src="https://londrimhappycaffe.github.io/happycaffemenu/menu1_page-0003.jpg" alt="Menu Page 3">
+        <img src="https://londrimhappycaffe.github.io/happycaffemenu/menu1_page-0004.jpg" alt="Menu Page 4">
+        <img src="https://londrimhappycaffe.github.io/happycaffemenu/menu1_page-0005.jpg" alt="Menu Page 5">
+        <img src="https://londrimhappycaffe.github.io/happycaffemenu/menu1_page-0006.jpg" alt="Menu Page 6">
+        <img src="https://londrimhappycaffe.github.io/happycaffemenu/menu1_page-0007.jpg" alt="Menu Page 7">
     </div>
+
 </body>
 </html>
