@@ -2,24 +2,65 @@
 <html>
 <head>
     <title>PDF Viewer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
     <style>
         body, html {
             margin: 0;
             padding: 0;
-            height: 100%;
         }
         .pdf-container {
-            width: 100%;
-            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        canvas {
+            margin: 10px;
+            border: 1px solid #ccc;
         }
     </style>
 </head>
 <body>
-    <!-- Embed PDF using the <object> tag -->
-    <object class="pdf-container" data="Menu.pdf" type="application/pdf">
-        <!-- Fallback content for unsupported browsers -->
-        <p>Your browser does not support PDFs. 
-            <a href="Menu.pdf">Download the PDF</a> to view it.</p>
-    </object>
+    <div class="pdf-container" id="pdf-container"></div>
+    <script>
+        const url = 'Menu.pdf'; // Replace with the path to your PDF file
+
+        const pdfjsLib = window['pdfjs-dist/build/pdf'];
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+
+        // Load the PDF
+        const loadingTask = pdfjsLib.getDocument(url);
+
+        loadingTask.promise.then(function (pdf) {
+            console.log(`PDF loaded: ${pdf.numPages} pages.`);
+
+            const container = document.getElementById('pdf-container');
+
+            // Iterate through all pages
+            for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+                pdf.getPage(pageNum).then(function (page) {
+                    const scale = 1.5;
+                    const viewport = page.getViewport({ scale });
+
+                    // Create a canvas element for each page
+                    const canvas = document.createElement('canvas');
+                    const context = canvas.getContext('2d');
+                    canvas.width = viewport.width;
+                    canvas.height = viewport.height;
+                    container.appendChild(canvas);
+
+                    // Render the page
+                    const renderContext = {
+                        canvasContext: context,
+                        viewport: viewport
+                    };
+                    page.render(renderContext).promise.then(function () {
+                        console.log(`Page ${pageNum} rendered.`);
+                    });
+                });
+            }
+        }).catch(function (error) {
+            console.error('Error loading PDF:', error);
+        });
+    </script>
 </body>
 </html>
