@@ -1,40 +1,63 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Menu</title>
+    <title>PDF Viewer</title>
     <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
     <style>
-        #pdf-viewer {
-            width: 100vw;
-            height: 100vh;
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+        canvas {
+            display: block;
+            margin: auto;
         }
     </style>
 </head>
 <body>
     <canvas id="pdf-viewer"></canvas>
     <script>
-        const url = 'Menu.pdf';
+        // Path to the PDF file
+        const url = 'Menu.pdf'; // Replace with full path if necessary
 
+        // Reference to PDF.js
         const pdfjsLib = window['pdfjs-dist/build/pdf'];
+
+        // Configure worker source
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://mozilla.github.io/pdf.js/build/pdf.worker.js';
 
+        // Load the PDF document
         const loadingTask = pdfjsLib.getDocument(url);
-        loadingTask.promise.then(function(pdf) {
-            pdf.getPage(1).then(function(page) {
+
+        loadingTask.promise.then(function (pdf) {
+            console.log(`PDF loaded: ${pdf.numPages} pages.`);
+
+            // Fetch the first page
+            pdf.getPage(1).then(function (page) {
+                console.log('Page loaded');
+
                 const scale = 1.5;
                 const viewport = page.getViewport({ scale });
 
+                // Prepare canvas for rendering
                 const canvas = document.getElementById('pdf-viewer');
                 const context = canvas.getContext('2d');
-                canvas.height = viewport.height;
                 canvas.width = viewport.width;
+                canvas.height = viewport.height;
 
+                // Render the page
                 const renderContext = {
                     canvasContext: context,
                     viewport: viewport
                 };
-                page.render(renderContext);
+                page.render(renderContext).promise.then(function () {
+                    console.log('Page rendered');
+                });
             });
+        }).catch(function (error) {
+            console.error('Error loading PDF:', error);
         });
     </script>
 </body>
