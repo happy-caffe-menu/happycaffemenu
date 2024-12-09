@@ -2,21 +2,40 @@
 <html>
 <head>
     <title>Menu</title>
+    <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
     <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-        }
-        embed {
-            display: block;
+        #pdf-viewer {
             width: 100vw;
             height: 100vh;
-            border: none;
         }
     </style>
 </head>
 <body>
-    <embed src="Menu.pdf" type="application/pdf">
+    <canvas id="pdf-viewer"></canvas>
+    <script>
+        const url = 'Menu.pdf';
+
+        const pdfjsLib = window['pdfjs-dist/build/pdf'];
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://mozilla.github.io/pdf.js/build/pdf.worker.js';
+
+        const loadingTask = pdfjsLib.getDocument(url);
+        loadingTask.promise.then(function(pdf) {
+            pdf.getPage(1).then(function(page) {
+                const scale = 1.5;
+                const viewport = page.getViewport({ scale });
+
+                const canvas = document.getElementById('pdf-viewer');
+                const context = canvas.getContext('2d');
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                const renderContext = {
+                    canvasContext: context,
+                    viewport: viewport
+                };
+                page.render(renderContext);
+            });
+        });
+    </script>
 </body>
 </html>
