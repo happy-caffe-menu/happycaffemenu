@@ -2,63 +2,24 @@
 <html>
 <head>
     <title>PDF Viewer</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
     <style>
         body, html {
             margin: 0;
             padding: 0;
             height: 100%;
-            overflow: hidden;
         }
-        canvas {
-            display: block;
-            margin: auto;
+        .pdf-container {
+            width: 100%;
+            height: 100%;
         }
     </style>
 </head>
 <body>
-    <canvas id="pdf-viewer"></canvas>
-    <script>
-        // Path to the PDF file
-        const url = 'Menu.pdf'; // Replace with full URL if necessary
-
-        // Reference to PDF.js
-        const pdfjsLib = window['pdfjs-dist/build/pdf'];
-
-        // Configure the worker source
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
-
-        // Load the PDF document
-        const loadingTask = pdfjsLib.getDocument(url);
-
-        loadingTask.promise.then(function (pdf) {
-            console.log(`PDF loaded: ${pdf.numPages} pages.`);
-
-            // Fetch the first page
-            pdf.getPage(1).then(function (page) {
-                console.log('Page loaded');
-
-                const scale = 1.5;
-                const viewport = page.getViewport({ scale });
-
-                // Prepare canvas for rendering
-                const canvas = document.getElementById('pdf-viewer');
-                const context = canvas.getContext('2d');
-                canvas.width = viewport.width;
-                canvas.height = viewport.height;
-
-                // Render the page
-                const renderContext = {
-                    canvasContext: context,
-                    viewport: viewport
-                };
-                page.render(renderContext).promise.then(function () {
-                    console.log('Page rendered');
-                });
-            });
-        }).catch(function (error) {
-            console.error('Error loading PDF:', error);
-        });
-    </script>
+    <!-- Embed PDF using the <object> tag -->
+    <object class="pdf-container" data="Menu.pdf" type="application/pdf">
+        <!-- Fallback content for unsupported browsers -->
+        <p>Your browser does not support PDFs. 
+            <a href="Menu.pdf">Download the PDF</a> to view it.</p>
+    </object>
 </body>
 </html>
